@@ -6,9 +6,9 @@ Production-ready base Docker images for Orbis Data projects.
 
 | Image | Base | Stack |
 |-------|------|-------|
-| `orbisdata/node-base:lts` | `node:lts-alpine` | Express, NestJS |
-| `orbisdata/node-nextjs:lts` | `node:lts-alpine` | Next.js standalone |
-| `orbisdata/node-static:lts` | `nginx:alpine` | React (static build) |
+| `orbisdata/node-base:lts` | `node:22-alpine` | Express, NestJS |
+| `orbisdata/node-nextjs:lts` | `node:22-alpine` | Next.js standalone |
+| `orbisdata/node-static:lts` | `nginx:1.27-alpine` | React (static build) |
 | `orbisdata/python-base:lts` | `python:3.12-slim` | FastAPI (Uvicorn), Flask (Gunicorn) |
 | `orbisdata/java-base:lts` | `eclipse-temurin:21-jre-alpine` | Spring Boot fat JAR |
 
@@ -17,8 +17,10 @@ Production-ready base Docker images for Orbis Data projects.
 - **No dev tools in production** — only what the app needs to run
 - **Non-root user** — all images run as an unprivileged user
 - **Minimal surface** — Alpine or slim variants to reduce vulnerabilities
-- **LTS only** — always pinned to the latest LTS release of each runtime
+- **LTS & explicit versions** — pinned to specific LTS releases for predictability
 - **Multi-stage builds** — build artifacts never leak into the final image
+- **Multi-arch support** — native `linux/amd64` and `linux/arm64` (Graviton/Apple Silicon)
+- **Proper PID 1 handling** — `dumb-init` configured across runtime containers for graceful shutdown
 
 ## Updating a base image
 

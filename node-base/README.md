@@ -3,13 +3,13 @@
 Base image for **Express** and **NestJS** applications.
 
 **Image:** `orbisdata/node-base:lts`  
-**Base:** `node:lts-alpine`  
+**Base:** `node:22-alpine`  
 **User:** `node` (non-root)  
 **Entrypoint:** `dumb-init` (proper PID 1 and signal handling)
 
 ## What's included
 
-- Node.js LTS (Alpine)
+- Node.js 22 LTS (Alpine)
 - `dumb-init` — prevents zombie processes and handles SIGTERM correctly
 - `NODE_ENV=production` pre-set
 
