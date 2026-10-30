@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM nginx:alpine AS base
+FROM nginx:1.27-alpine AS base
 
 # Remove default nginx config
 RUN rm /etc/nginx/conf.d/default.conf

@@ -4,11 +4,13 @@ Base image for **FastAPI** (Uvicorn) and **Flask** (Gunicorn) applications.
 
 **Image:** `orbisdata/python-base:lts`  
 **Base:** `python:3.12-slim`  
-**User:** `appuser` (non-root, uid 1001)
+**User:** `appuser` (non-root, uid 1001)  
+**Entrypoint:** `dumb-init` (proper PID 1 and signal handling)
 
 ## What's included
 
 - Python 3.12 slim
+- `dumb-init` — prevents zombie processes and handles SIGTERM correctly
 - `curl` (for health checks in docker-compose)
 - Non-root `appuser`
 - Optimized Python flags: no `.pyc` files, unbuffered stdout, fault handler enabled

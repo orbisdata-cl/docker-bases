@@ -3,7 +3,7 @@
 Base image for **React** applications (static builds served via nginx).
 
 **Image:** `orbisdata/node-static:lts`  
-**Base:** `nginx:alpine`  
+**Base:** `nginx:1.27-alpine`  
 **User:** `nginx` (non-root)  
 **Port:** `8080`
 
