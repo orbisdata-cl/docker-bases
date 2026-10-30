@@ -6,8 +6,8 @@ Production-ready base Docker images for Orbis Data projects.
 
 | Image | Base | Stack |
 |-------|------|-------|
-| `ghcr.io/orbisdata-cl/node-base:lts` | `node:22-alpine` | Express, NestJS |
-| `ghcr.io/orbisdata-cl/node-nextjs:lts` | `node:22-alpine` | Next.js standalone |
+| `ghcr.io/orbisdata-cl/node-base:lts` | `node:24-alpine` | Express, NestJS |
+| `ghcr.io/orbisdata-cl/node-nextjs:lts` | `node:24-alpine` | Next.js standalone |
 | `ghcr.io/orbisdata-cl/node-static:lts` | `nginx:1.27-alpine` | React (static build) |
 | `ghcr.io/orbisdata-cl/python-base:lts` | `python:3.12-slim` | FastAPI (Uvicorn), Flask (Gunicorn) |
 | `ghcr.io/orbisdata-cl/java-base:lts` | `eclipse-temurin:21-jre-alpine` | Spring Boot fat JAR |

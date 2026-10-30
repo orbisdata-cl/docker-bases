@@ -3,7 +3,7 @@
 Base image for **Next.js** applications using [standalone output](https://nextjs.org/docs/pages/api-reference/next-config-js/output).
 
 **Image:** `ghcr.io/orbisdata-cl/node-nextjs:lts`  
-**Base:** `node:22-alpine`  
+**Base:** `node:24-alpine`  
 **User:** `node` (non-root)  
 **Entrypoint:** `dumb-init`
 
