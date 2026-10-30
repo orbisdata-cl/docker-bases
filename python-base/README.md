@@ -2,7 +2,7 @@
 
 Base image for **FastAPI** (Uvicorn) and **Flask** (Gunicorn) applications.
 
-**Image:** `orbisdata/python-base:lts`  
+**Image:** `ghcr.io/orbisdata-cl/python-base:lts`  
 **Base:** `python:3.12-slim`  
 **User:** `appuser` (non-root, uid 1001)  
 **Entrypoint:** `dumb-init` (proper PID 1 and signal handling)
@@ -21,12 +21,12 @@ Base image for **FastAPI** (Uvicorn) and **Flask** (Gunicorn) applications.
 # syntax=docker/dockerfile:1
 
 # Stage 1 — install dependencies
-FROM orbisdata/python-base:lts AS deps
+FROM ghcr.io/orbisdata-cl/python-base:lts AS deps
 COPY requirements.txt ./
 RUN pip install --user --no-cache-dir -r requirements.txt
 
 # Stage 2 — final image
-FROM orbisdata/python-base:lts AS runner
+FROM ghcr.io/orbisdata-cl/python-base:lts AS runner
 COPY --from=deps /home/appuser/.local /home/appuser/.local
 COPY --chown=appuser:appuser . .
 
@@ -41,11 +41,11 @@ CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--worker
 ```dockerfile
 # syntax=docker/dockerfile:1
 
-FROM orbisdata/python-base:lts AS deps
+FROM ghcr.io/orbisdata-cl/python-base:lts AS deps
 COPY requirements.txt ./
 RUN pip install --user --no-cache-dir -r requirements.txt
 
-FROM orbisdata/python-base:lts AS runner
+FROM ghcr.io/orbisdata-cl/python-base:lts AS runner
 COPY --from=deps /home/appuser/.local /home/appuser/.local
 COPY --chown=appuser:appuser . .
 

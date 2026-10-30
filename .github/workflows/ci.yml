@@ -22,9 +22,13 @@ on:
     - cron: '0 6 * * 1'
   workflow_dispatch:
 
+permissions:
+  contents: read
+  packages: write
+
 env:
-  REGISTRY: docker.io
-  ORG: orbisdata
+  REGISTRY: ghcr.io
+  ORG: ${{ github.repository_owner }}
 
 jobs:
   detect-changes:
@@ -75,12 +79,13 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Log in to DockerHub
+      - name: Log in to GitHub Container Registry
         if: github.event_name != 'pull_request'
         uses: docker/login-action@v3
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build image
         uses: docker/build-push-action@v5
@@ -89,14 +94,14 @@ jobs:
           context: ./${{ matrix.image }}
           push: false
           load: true
-          tags: ${{ env.ORG }}/${{ matrix.image }}:lts
+          tags: ${{ env.REGISTRY }}/${{ env.ORG }}/${{ matrix.image }}:lts
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
       - name: Scan for vulnerabilities (Trivy)
         uses: aquasecurity/trivy-action@master
         with:
-          image-ref: ${{ env.ORG }}/${{ matrix.image }}:lts
+          image-ref: ${{ env.REGISTRY }}/${{ env.ORG }}/${{ matrix.image }}:lts
           format: table
           exit-code: '1'
           ignore-unfixed: true
@@ -119,7 +124,7 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            ${{ env.ORG }}/${{ matrix.image }}:lts
-            ${{ env.ORG }}/${{ matrix.image }}:lts-${{ github.run_id }}
+            ${{ env.REGISTRY }}/${{ env.ORG }}/${{ matrix.image }}:lts
+            ${{ env.REGISTRY }}/${{ env.ORG }}/${{ matrix.image }}:lts-${{ github.run_id }}
           cache-from: type=gha
           cache-to: type=gha,mode=max

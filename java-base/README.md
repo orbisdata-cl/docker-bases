@@ -2,7 +2,7 @@
 
 Base image for **Spring Boot** applications packaged as a fat JAR.
 
-**Image:** `orbisdata/java-base:lts`  
+**Image:** `ghcr.io/orbisdata-cl/java-base:lts`  
 **Base:** `eclipse-temurin:21-jre-alpine` (JRE only — no JDK in production)  
 **User:** `appuser` (non-root, uid 1001)  
 **Entrypoint:** `dumb-init` (proper PID 1 and signal handling)
@@ -30,7 +30,7 @@ COPY . .
 RUN ./mvnw package -DskipTests --no-transfer-progress
 
 # Stage 2 — run
-FROM orbisdata/java-base:lts AS runner
+FROM ghcr.io/orbisdata-cl/java-base:lts AS runner
 COPY --from=builder --chown=appuser:appuser /build/target/*.jar app.jar
 
 EXPOSE 8080

@@ -2,7 +2,7 @@
 
 Base image for **Express** and **NestJS** applications.
 
-**Image:** `orbisdata/node-base:lts`  
+**Image:** `ghcr.io/orbisdata-cl/node-base:lts`  
 **Base:** `node:22-alpine`  
 **User:** `node` (non-root)  
 **Entrypoint:** `dumb-init` (proper PID 1 and signal handling)
@@ -23,12 +23,12 @@ No dev dependencies, no build tools, no shell extras. Only what's needed to run 
 # syntax=docker/dockerfile:1
 
 # Stage 1 — install dependencies
-FROM orbisdata/node-base:lts AS deps
+FROM ghcr.io/orbisdata-cl/node-base:lts AS deps
 COPY package*.json ./
 RUN npm ci --omit=dev
 
 # Stage 2 — final image
-FROM orbisdata/node-base:lts AS runner
+FROM ghcr.io/orbisdata-cl/node-base:lts AS runner
 COPY --from=deps /app/node_modules ./node_modules
 COPY --chown=node:node . .
 
@@ -41,7 +41,7 @@ CMD ["node", "dist/main.js"]
 ```dockerfile
 # syntax=docker/dockerfile:1
 
-FROM orbisdata/node-base:lts AS builder
+FROM ghcr.io/orbisdata-cl/node-base:lts AS builder
 USER root
 RUN apk add --no-cache python3 make g++
 USER node
@@ -50,7 +50,7 @@ RUN npm ci
 COPY --chown=node:node . .
 RUN npm run build
 
-FROM orbisdata/node-base:lts AS runner
+FROM ghcr.io/orbisdata-cl/node-base:lts AS runner
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/node_modules ./node_modules
 

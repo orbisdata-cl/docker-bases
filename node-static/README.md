@@ -2,7 +2,7 @@
 
 Base image for **React** applications (static builds served via nginx).
 
-**Image:** `orbisdata/node-static:lts`  
+**Image:** `ghcr.io/orbisdata-cl/node-static:lts`  
 **Base:** `nginx:1.27-alpine`  
 **User:** `nginx` (non-root)  
 **Port:** `8080`
@@ -28,7 +28,7 @@ COPY . .
 RUN npm run build
 
 # Stage 2 — serve with nginx
-FROM orbisdata/node-static:lts AS runner
+FROM ghcr.io/orbisdata-cl/node-static:lts AS runner
 COPY --from=builder /app/dist /usr/share/nginx/html
 
 EXPOSE 8080

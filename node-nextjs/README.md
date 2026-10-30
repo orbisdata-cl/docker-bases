@@ -2,7 +2,7 @@
 
 Base image for **Next.js** applications using [standalone output](https://nextjs.org/docs/pages/api-reference/next-config-js/output).
 
-**Image:** `orbisdata/node-nextjs:lts`  
+**Image:** `ghcr.io/orbisdata-cl/node-nextjs:lts`  
 **Base:** `node:22-alpine`  
 **User:** `node` (non-root)  
 **Entrypoint:** `dumb-init`
@@ -36,7 +36,7 @@ COPY . .
 RUN npm run build
 
 # Stage 2 — final image
-FROM orbisdata/node-nextjs:lts AS runner
+FROM ghcr.io/orbisdata-cl/node-nextjs:lts AS runner
 
 # Copy standalone output
 COPY --from=builder --chown=node:node /app/.next/standalone ./
